@@ -1,0 +1,16 @@
+[project]
+name = "local-guide-chatbot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "datasets>=3.6.0",
+    "faker>=18.13.0",
+    "matplotlib>=3.10.3",
+    "pandas>=2.0.0",
+    "scikit-learn>=1.7.0",
+    "sentencepiece>=0.2.0",
+    "torch>=2.7.1",
+    "transformers>=4.52.4",
+]
