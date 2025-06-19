@@ -1,0 +1,6 @@
+/api/data.txt
+/api/cleaned_rwanda_data.txt
+/api/rwanda_data.txt
+/api/chroma_db
+.venv
+.env

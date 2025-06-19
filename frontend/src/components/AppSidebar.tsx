@@ -41,7 +41,7 @@ export function AppSidebar() {
   return (
     <Sidebar className="border-r border-gray-200">
       <SidebarHeader className="p-4 border-b">
-        <Button className="w-full justify-start gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+        <Button className="w-full justify-start gap-2 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600">
           <Plus className="w-4 h-4" />
           New Chat
         </Button>
