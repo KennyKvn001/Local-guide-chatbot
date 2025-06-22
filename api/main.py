@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pipeline import initialize_rag_pipeline, query_rag
-import os
+
 
 app = FastAPI(title="Rwanda LocalGuide Chatbot")
 

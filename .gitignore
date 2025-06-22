@@ -4,3 +4,6 @@
 /api/chroma_db
 .venv
 .env
+/api/__pycache__
+/api/scrape.py
+.gitignore
