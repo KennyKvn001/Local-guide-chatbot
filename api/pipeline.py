@@ -74,8 +74,8 @@ def initialize_rag_pipeline(
 
     # Initialize LLM (placeholder; replace with Grok API or other LLM)
     llm = ChatOpenAI(
-        model_name="mistralai/Mistral-7B-Instruct-v0.2",  # pick any model OpenRouter offers
-        base_url="https://openrouter.ai/api/v1",  # OpenRouter endpoint
+        model_name="mistralai/Mistral-7B-Instruct-v0.2",
+        base_url="https://openrouter.ai/api/v1",
         api_key=os.getenv("OPENROUTER_API_KEY"),
         temperature=0.0,
         max_tokens=500,
