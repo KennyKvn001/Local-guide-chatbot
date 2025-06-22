@@ -1,4 +1,4 @@
-![Local Guide Chatbot Screenshot](chat-screenshot.png)
+![Local Guide Chatbot Screenshot](assets/chat-screenshot.png)
 
 # Local-Guide Chatbot
 
@@ -6,37 +6,28 @@
 
 A full-stack application that lets users chat with a locally-trained Q&A model about tourism in Rwanda. It comprises a FastAPI backend that serves the model and a modern React (Vite + TypeScript + Tailwind CSS) frontend. Everything can be run locally with Python and Node, or packaged into a single container via Docker.
 
----
+## Dataset
 
-## 📂 Repository Structure
+The dataset consists of manually curated and synthetically generated question-answer pairs focused on Rwanda-specific topics, Each entry consists of 3 columns:
+domain: the query domain
+question: The user query
+answer: The relevant chatbot response
 
-```
-.
-├── api/                  # FastAPI application (REST + Streaming endpoints)
-│   ├── main.py           # Entrypoint for Uvicorn / Docker
-│   ├── pipeline.py       # Inference & preprocessing pipeline
-│   └── clean_data.py     # Utility script for dataset cleaning
-│
-├── frontend/             # React + Vite client application
-│   ├── src/              # Front-end source (components, pages, hooks, ui)
-│   └── public/           # Static assets served by Vite
-│
-├── notebook/
-│   └── LocalGuideModel.ipynb  # Jupyter notebook used to train / fine-tune the model
-│
-├── scripts/              # Stand-alone Python helpers (training, preprocessing)
-│   ├── dataset_generator.py
-│   ├── preprocessing.py
-│   └── trainer.py
-│
-├── rwanda_qa_cleaned.csv # Curated Q&A dataset (public)
-│
-├── Dockerfile            # Production-ready image combining backend & built frontend
-├── pyproject.toml        # Poetry / PEP-621 project configuration
-└── README.md             # You are here
-```
+The final cleaned dataset comprises 430 unique question-answer pairs saved in `rwanda_qa_cleaned.csv`.
 
-> The tree above omits all files and directories ignored by Git (virtual-envs, caches, etc.).
+![Domain Distribution](assets/domain_distribution.png)
+
+## Performance metrics
+
+Perplexity: ~280.11, based on the tuned decoding evaluation (Trial 7). This reflects a significant improvement in fluency and confidence in T5-small’s domain-specific generative outputs.
+
+Qualitative Evaluation: The model was tested using a Streamlit interface with realistic user queries, demonstrating:
+
+In-domain accuracy (e.g., “eco-lodges near volcanoes np in rwanda” → “Bisate Lodge (luxury) or Red Rocks Rwanda (budget)”).
+
+Out-of-domain rejection (e.g., “what’s the weather?” → “I'm sorry, I can only help with questions related to Rwanda's local services.”).
+
+Training: The model was fine-tuned over 30 epochs (Trial 7) using a learning rate of 5e-5. It achieved a validation loss of 2.29, down from the baseline 3.65, showing a 37.3% reduction in loss, which indicates effective learning and improved generalization.
 
 ---
 
@@ -77,19 +68,11 @@ Any later version _should_ also work.
    npm run dev   # hot-reloads on http://localhost:5173
    ```
 
----
+3. **Run backend**
 
-## 🤖 Using / Retraining the Model
-
-The conversational model powering the chatbot is prototyped in `notebook/LocalGuideModel.ipynb`.
-
-1. Launch the notebook (e.g., `jupyter lab notebook/LocalGuideModel.ipynb`).
-2. Execute the cells to download the base model, fine-tune on `rwanda_qa_cleaned.csv`, and export weights.
-3. Exported checkpoints are automatically picked up by `api/pipeline.py`. By default the pipeline looks for a directory named `model` at the project root – simply move / copy your trained weights there.
-
-_No external API keys are required – the entire model runs locally._
-
-If you do not wish to retrain, you can download a pre-trained checkpoint (see project releases) and place it in the same `model/` folder.
+```bash
+uv run python main.py
+```
 
 ---
 

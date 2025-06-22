@@ -39,6 +39,9 @@ COPY --from=backend /usr/local /usr/local
 COPY --from=backend /app /app
 COPY --from=frontend /app/frontend/dist /app/frontend/dist
 
+ARG OPENROUTER_API_KEY=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
+ENV OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+
 EXPOSE 8000
 
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"] 
